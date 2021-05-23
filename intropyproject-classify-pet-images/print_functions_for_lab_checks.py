@@ -68,7 +68,7 @@ def check_creating_pet_image_labels(results_dic):
             # prints only first 10 labels
             if n < stop_point:
                 print("{:2d} key: {:>30}  label: {:>26}".format(n+1, key,
-                      results_dic[key]) )
+                      results_dic[key][0]) )
 
                 # Increments counter
                 n += 1

@@ -46,7 +46,7 @@ def get_pet_labels(image_dir):
     # Creates list of labels 
     pet_labels = map(
       #create table of all words in the file name, join using space and remove extension (last word in the list)
-      lambda i: ' '.join(re.findall('[a-zA-Z]+',i.lower())[:-1]),
+      lambda i: [' '.join(re.findall('[a-zA-Z]+',i.lower())[:-1])],
       image_files)
     # Creates zip dict from two list  
     results = dict(zip(image_files, pet_labels))
