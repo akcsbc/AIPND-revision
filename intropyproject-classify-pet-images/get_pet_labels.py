@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 # */AIPND-revision/intropyproject-classify-pet-images/get_pet_labels.py
 #                                                                             
-# PROGRAMMER: 
-# DATE CREATED:                                  
+# PROGRAMMER: Szymon Strzoda
+# DATE CREATED: 22.05.2021  
 # REVISED DATE: 
 # PURPOSE: Create the function get_pet_labels that creates the pet labels from 
 #          the image's filename. This function inputs: 
@@ -18,11 +18,9 @@
 ##
 # Imports python modules
 from os import listdir
+import os.path
+import re 
 
-# TODO 2: Define get_pet_labels function below please be certain to replace None
-#       in the return statement with results_dic dictionary that you create 
-#       with this function
-# 
 def get_pet_labels(image_dir):
     """
     Creates a dictionary of pet labels (results_dic) based upon the filenames 
@@ -40,6 +38,17 @@ def get_pet_labels(image_dir):
       List. The list contains for following item:
          index 0 = pet image label (string)
     """
-    # Replace None with the results_dic dictionary that you created with this
-    # function
-    return None
+
+    # Defines mask for image files we take into account 
+    image_file_re = re.compile(".*\.(jpg)$")
+    # Creates list of image files in directory
+    image_files = [f for f in listdir(image_dir) if os.path.isfile(os.path.join(image_dir,f)) and image_file_re.match(f)]  
+    # Creates list of labels 
+    pet_labels = map(
+      #create table of all words in the file name, join using space and remove extension (last word in the list)
+      lambda i: [' '.join(re.findall('[a-zA-Z]+',i.lower())[:-1])],
+      image_files)
+    # Creates zip dict from two list  
+    results = dict(zip(image_files, pet_labels))
+
+    return results
